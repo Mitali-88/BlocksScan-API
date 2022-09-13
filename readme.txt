@@ -8,28 +8,25 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-app.get("/api",async(req,res)=>{
+app.get("/api",async(req,res){
+    
     let config={
         method:"get",
         url:`https://xdc.blocksscan.io/api/accounts/${req.query.address}`,
-        data:data
     };
-
     axios(config)
-
-    try{
+    .then(function(response){
         let ans={
             "status":"1",
             "message":"OK",
-            "result":data.balance
+            "result":response.data.balance
         }
-        const res = await axios.get('url', ans)
         res.send(ans);
-    }
+    })
     
-   catch(error){
+   .catch(function(error){
     console.log(error);
-   };
+   });
 });
 
 
