@@ -2,23 +2,14 @@ const axios = require("axios");
 const express = require("express");
 const bodyParser = require("body-parser");
 const apiRoute=require("./routes/api");
-
+const sendRequest=require("./controllers/sendRequest")
 const app = express();
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
 
-
-
-
-// router.get("/", async (req, res) => {
-//     var address = req.query.address;
-//     var ans2 = await sendRequest(address);
-//     res.send(ans2);
-   
-// });
-app.use(apiRoute);
+app.use("/api",apiRoute);
 
 
 app.listen(3000, function () {

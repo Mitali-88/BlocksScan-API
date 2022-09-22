@@ -1,5 +1,6 @@
 const express = require("express");
-
+const axios = require("axios");
+const bodyParser = require("body-parser");
 async function sendRequest(address) {
     try {
     let config = {
@@ -7,14 +8,7 @@ async function sendRequest(address) {
         url: `https://xdc.blocksscan.io/api/accounts/${address}`,
     };
     let data =await axios(config);
-    let value=data.data.balance
-
-        let ans = {
-            "status": "1",
-            "message": "OK",
-             "result": value
-        }
-        return ans;
+    return value=data.data.balance
     }
     catch (error) {
         console.log(error);
