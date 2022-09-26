@@ -10,7 +10,8 @@ async function getBalance(address) {
         url: `https://xdc.blocksscan.io/api/accounts/${address}`,
     };
     let data =await axios(config);
-    return value=data.data.balance
+    let Balance=data.data.balance
+    return Balance
     } 
     catch (error) {
         console.log(error);
@@ -23,15 +24,32 @@ async function getTxList(address) {
     let config = {
         method: "get",
         url: `https://xdc.blocksscan.io/api/txs/listByAccount/${address}`,
+        
     };
   let data= ( await axios(config));
-  console.log(data);
-   
+  let txlist=data.data.items;
+  return txlist;
     }
     catch (error) {
         console.log(error);
         return error;
     };
 };
-module.exports={getBalance}; 
-module.exports={getTxList}; 
+async function internalist(address) {
+    try {
+    let config = {
+        method: "get",
+        url: `https://xdc.blocksscan.io/api/txs/internal/${address}`,
+        
+    };
+  let data= ( await axios(config));
+return data.data.items;
+    }
+    catch (error) {
+        console.log(error);
+        return error;
+    };
+};
+
+module.exports={getBalance,getTxList,internalist}; 
+// module.exports={getTxList}; 

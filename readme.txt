@@ -52,3 +52,8 @@ https://api.etherscan.io/api
     xdcb94249638a3Cd070794a6896F65B954547685F8F,
     xdcA488B8FdC6df7cAD537e88b66841F67B1cBB315B
    }
+
+
+   // if (req.query.action == "balancemulti")
+   // else if (req.query.action == "balance") 
+   // else if(req.query.action=="txlist")
