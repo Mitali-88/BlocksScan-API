@@ -7,7 +7,7 @@ async function getBalance(address) {
     try {
     let config = {
         method: "get",
-        url: `https://xdc.blocksscan.io/api/accounts/${address}`,
+        url: `https://xdcscan.io/api/accounts/${address}`,
     };
     let data =await axios(config);
     let Balance=data.data.balance
@@ -50,6 +50,36 @@ return data.data.items;
         return error;
     };
 };
+async function getabi(address){
+    try{
+        let config={
+            method: "get",
+            url: `https://xdc.blocksscan.io/api/contracts/${address}`,
+        };
+        let data=(await axios(config));
+        // console.log(data.data.abiCode);
+      return data.data.abiCode
+    }
+    catch (error){
+        console.log(error);
+        return error;
+    }
+}
+async function sourceCode(address){
+    try{
+        let config={
+            method: "get",
+            url: `https://xdc.blocksscan.io/api/contracts/${address}`,
+        };
+        let data=(await axios(config));
+        // console.log(data.data.abiCode);
+      return data.data.sourceCode
+    }
+    catch (error){
+        console.log(error);
+        return error;
+    }
+}
 
-module.exports={getBalance,getTxList,internalist}; 
+module.exports={getBalance,getTxList,internalist,getabi,sourceCode}; 
 // module.exports={getTxList}; 

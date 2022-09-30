@@ -3,6 +3,13 @@ const express = require("express");
 const router = express.Router()
 const sendRequest = require("../controllers/sendRequest");
 
+function display(){
+    return({
+        "Status":"1",
+        "message":"OK",
+        "result":{}
+    })
+}
 // http://localhost:3000/api?module=account&action=balancemulti&address=xdcd77875dF9C9dE07a5a701F4431743e3A0e9Fe03a,xdcb94249638a3Cd070794a6896F65B954547685F8F,xdcA488B8FdC6df7cAD537e88b66841F67B1cBB315B&tag=latest&apikey=VHT25VME49MQTZ42QRSJYCUZHFG7496PW5
 router.get("/", async (req, res) => {
     var action = req.query.action;
@@ -78,7 +85,45 @@ case "txlistinternal":
         }
         res.send(displayResponse);
     }
+    break;
+// http://localhost:3000/api?module=account&action=txlistinternal&txhash=0x2c72d194fe75a2857c6881d556d9fc42452a30e417f60db3dab07ef931a0ce4b&apikey=VHT25VME49MQTZ42QRSJYCUZHFG7496PW5
+case "txhash":
+    {
+        var hash=req.query.txhash;
+        var transaction=await sendRequest.getBalance(hash);
+        var displayResponse = {
+            "status": "1",
+            "message": "OK",
+            "result": internallist
+        }
+        res.send(displayResponse);
     }
+   
+    // http://localhost:3000/api?module=contract&action=getabi&address=xdcd4b5f10d61916bd6e0860144a91ac658de8a1437&apikey=VHT25VME49MQTZ42QRSJYCUZHFG7496PW5
+    case "getabi":
+        {
+            var address=req.query.address;
+            var abiCode=await sendRequest.getabi(address);
+            var displayResponse={
+                "status":"1",
+                "message":"OK",
+                "result": abiCode
+            }
+            res.send(displayResponse)
+        }
+// http://localhost:3000/api?module=contract&action=getsourcecode&address=xdcd4b5f10d61916bd6e0860144a91ac658de8a1437&apikey=VHT25VME49MQTZ42QRSJYCUZHFG7496PW5
+case "getsourcecode":
+        {
+            var address=req.query.address;
+            var sourceCode=await sendRequest.sourceCode(address);
+            var displayResponse={
+                "status":"1",
+                "message":"OK",
+                "result": sourceCode
+            }
+            res.send(displayResponse)
+        }
+}
 
 });
 
