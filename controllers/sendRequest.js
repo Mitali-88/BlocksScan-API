@@ -80,6 +80,21 @@ async function sourceCode(address){
         return error;
     }
 }
+async function XDC_block(){
+    try{
+        let config={
+            method: "get",
+            url: "https://xdc.blocksscan.io/api/blocks/finality/latestIrreversibleBlock",
+        };
+        let data=(await axios(config));
+        
+      return data.data.latestIrreversibleBlock;
+    }
+    catch (error){
+        console.log(error);
+        return error;
+    }
+}
 
-module.exports={getBalance,getTxList,internalist,getabi,sourceCode}; 
+module.exports={getBalance,getTxList,internalist,getabi,sourceCode,XDC_block}; 
 // module.exports={getTxList}; 
